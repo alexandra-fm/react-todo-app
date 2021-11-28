@@ -1,17 +1,17 @@
 import React from "react"
 
-import TodoListItem from "./TodoListItem"
+import TodoListItem from "../TodoListItem"
 
 import "./TodoList.css"
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDeleted }) => {
   const elements = todos.map(item => {
     const { id, ...itemProps } = item
 
     return (
       <li key={id} className="list-group-item">
         {/*Вариант 1: <TodoListItem label={item.label} imortant={item.imortant} /> */}
-        <TodoListItem {...itemProps} />
+        <TodoListItem {...itemProps} onDeleted={() => onDeleted(id)} />
       </li>
     )
   })
