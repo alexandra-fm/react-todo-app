@@ -5,11 +5,11 @@ import "./ItemAddForm.css"
 const ItemAddForm = ({ onAddedItem }) => {
   return (
     <div className="item-add-form">
-      <input
+      {/* <input
         type="text"
         className="form-control add-input"
         placeholder="type to add"
-      ></input>
+      ></input> */}
       <button
         className="btn btn-outline-secondary"
         onClick={() => onAddedItem("New task added!")}

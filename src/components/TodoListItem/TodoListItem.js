@@ -3,37 +3,15 @@ import React, { Component } from "react"
 import "./TodoListItem.css"
 
 export default class TodoListItem extends Component {
-  /* Вариант 1: constructor() {
-    super()
-
-    this.onLabelClick = () => console.log(`Done: ${this.props.label}`)
-  } */
-
-  state = {
-    done: false,
-    important: false,
-  }
-
-  //Возможно обращаться через state.done или с пом. деструктцризации
-  onLabelClick = () => {
-    this.setState(({ done }) => {
-      return {
-        done: !done,
-      }
-    })
-  }
-
-  onMarkImportant = () => {
-    this.setState(({ important }) => {
-      return {
-        important: !important,
-      }
-    })
-  }
-
   render() {
-    const { label, onDeletedItem } = this.props
-    const { done, important } = this.state
+    const {
+      label,
+      onDeletedItem,
+      onToggleImportant,
+      onToggleDone,
+      important,
+      done,
+    } = this.props
 
     let className = "todo-list-item"
     if (done) {
@@ -46,14 +24,14 @@ export default class TodoListItem extends Component {
 
     return (
       <span className={className}>
-        <span className="todo-list-item-label" onClick={this.onLabelClick}>
+        <span className="todo-list-item-label" onClick={onToggleDone}>
           {label}
         </span>
 
         <button
           type="button"
           className="btn btn-outline-success btn-sm float-end"
-          onClick={this.onMarkImportant}
+          onClick={onToggleImportant}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
