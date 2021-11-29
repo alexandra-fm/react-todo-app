@@ -17,6 +17,7 @@ export default class App extends Component {
       this.createTodoItem("Build React App"),
       this.createTodoItem("Have a lunch"),
     ],
+    term: "",
   }
 
   createTodoItem(label) {
@@ -26,6 +27,18 @@ export default class App extends Component {
       done: false,
       id: this.maxId++,
     }
+  }
+
+  searchChange = term => {
+    this.setState({ term })
+  }
+
+  search(items, term) {
+    if (term.length === 0) return items
+
+    return items.filter(item => {
+      return item.label.toLowerCase().includes(term.toLowerCase())
+    })
   }
 
   deletItem = id => {
@@ -82,7 +95,9 @@ export default class App extends Component {
   }
 
   render() {
-    const { todoData } = this.state
+    const { todoData, term } = this.state
+
+    const visibleItems = this.search(todoData, term)
     const doneCount = todoData.filter(el => el.done).length
     const todoCount = todoData.length - doneCount
 
@@ -91,12 +106,12 @@ export default class App extends Component {
         <AppHeader toDo={todoCount} done={doneCount} />
 
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel onSearchChange={this.searchChange} />
           <ItemStatusFilter />
         </div>
 
         <TodoList
-          todos={todoData}
+          todos={visibleItems}
           onDeletedItem={this.deletItem}
           onToggleImportant={this.toggleImportant}
           onToggleDone={this.toggleDone}
